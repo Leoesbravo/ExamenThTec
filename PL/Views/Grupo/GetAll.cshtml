@@ -1,0 +1,48 @@
+﻿@model ML.GrupoUsuario
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Grupos</h2>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Selecciona un grupo para ver la conversación o crea un nuevo grupo</h5>
+            <hr />
+        </div>
+    </div>
+    </hr>
+
+    <div class="form-group hidden">
+        <div class="col-md-3">
+            @Html.TextBoxFor(model => model.Usuario.IdUsuario, new { @class = "form-control hidden", @readonly = true })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-success col-md-12" value="Crear Nuevo Grupo" href="@Url.Action("Add", "Grupo", Model.Usuario)"> Crear Nuevo Grupo </a>
+        </div>
+    </div>
+    <br />
+
+
+    <div class="row">
+        @foreach (ML.GrupoUsuario grupo in Model.Grupos)
+        {
+            <div class="col mt-3 pt-3">
+                <div class="card text-white bg-dark border-success  mb-3 border-4 " style="width: 18rem;">
+                    <img src="~/Images/Historia.jpg" class="card-img-top" style=" height:50%; width:100%;">
+                    <div class="card-body ">
+                        <h5 class="card-title card-header text-center bg-secondary" id="pNombre">@grupo.Grupo.Nombre</h5>
+                        <a href="@Url.Action("Chat", "Grupo", new { IdUsuario = grupo.Usuario.IdUsuario, IdGrupo = grupo.Grupo.IdGrupo})" class="btn btn-success">Ver Grupo <i class="bi bi-cart3" style="color: khaki"></i> </a>
+
+                        @* <button class="btn btn-success" onclick="CrearObjeto()" >Añadir <i class="bi bi-cart3" style="color: khaki"></i></button>      *@
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

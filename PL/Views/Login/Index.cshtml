@@ -1,0 +1,93 @@
+﻿
+@{
+    Layout = null;
+}
+<head>
+    <link rel="stylesheet" href="~/Content/DataTables/css/StyleSheet1.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
+</head>
+<div class="bubbles">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+</div>
+<div class="container">
+    <div class="d-flex justify-content-center align-items-center flex-wrap">
+        <div class="content">
+            <div class="h4 text-white">ThTec</div>
+            <div class="fs-5 text-white text-grey">Bienvenido</div>
+            <div class="text my-4 text-grey">
+                Somos una empresa con más de 10 años de experiencia, 
+                reconocida por nuestros clientes como un Socio de Negocios.
+            </div>
+            <div class="d-flex align-items-center pt-3 mt-4">
+            </div>
+
+        </div>
+        <div class="form-card">
+            <div class="card">
+                <div class="card-form">
+                    <p class="text-center text-muted fs-08 mt-3">Inicia sesión con tu username y contraseña</p>
+                    <form method="post" name="UsuarioGetByUserName">
+                        <!-- USERNAME INPUT -->
+                        <div class="form-group">
+                            <label for="UserName">Username</label>
+                            <input type="text" name="userName" placeholder="Ingresa Username" id="iuserName" class="form-control">
+                        <!-- PASSWORD INPUT -->
+                            <label for="Contraseña">Contraseña</label>
+                            <input type="password" name="contrasenia" placeholder="Ingresa Contraseña" id="icontrasenia" class="form-control">
+                            <br />
+                            <button name="UsuarioGetByUserName" value="UsuarioGetByUserName" class=" btn btn-success" type="submit" onclick="Login()">Entrar</button>
+                        </div>
+                    </form>
+                    <div class="d-flex align-items-center">
+
+                        </div>
+                        <div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mt-4 mb-0 ">
+                            <a class="btn  btn-outline-secondary btn-lg " href="/Usuario/Form?">Registrate</a>
+                        </div>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"
+        integrity="sha512-SttpKhJqONuBVxbRcuH0wezjuX+BoFoli0yPsnrAADcHsQMW8rkR84ItFHGIkPvhnlRnE2FaifDOUw+EltbuHg=="
+        crossorigin="anonymous"></script>
+<script src="../../Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="../../Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function (event) {
+        // Your code to run since DOM is loaded and ready
+        VanillaTilt.init(document.querySelectorAll(".card"), {
+            max: 25,
+            speed: 400,
+            glare: false,
+            "max-glare": 0.8
+        });
+        VanillaTilt.init(document.querySelectorAll(".card"));
+    });
+
+    function Login() {
+
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:25500/Login/UsuarioGetByUserName',
+            dataType: 'json',
+            data: JSON.stringify({ userName: $('#iuserName').val(), contrasenia: $('#icontrasenia').val()}),
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                 window.location.href = response.redirectToUrl;
+            }
+        });
+    };
+</script>
